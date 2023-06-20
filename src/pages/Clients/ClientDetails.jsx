@@ -1,11 +1,11 @@
 import Container from "../../components/Container/Container";
 import Title from "../../components/Title/Title";
 import Input from "../../components/Input/Input";
-import {ClientForm, PersonalData, AddressData} from "./Clients.styles";
+import { ClientForm, PersonalData, AddressData } from "./Clients.styles";
 
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {fetchClientByCPF} from "../../services/clients";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchClientByCPF } from "../../services/clients";
 import useForm from "../../Hooks/UseForm";
 import Button from "../../components/Button/Button";
 
@@ -29,7 +29,7 @@ export default function ClientDetails() {
     }
 
     if (clientId) fetchData();
-  }, []);
+  }, [clientId]);
 
   const createClient = (event) => {
     event.preventDefault();

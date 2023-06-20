@@ -39,3 +39,15 @@ export const Error = styled.p`
   padding-left: 0.85rem;
   margin-top: 5px;
 `;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const PasswordIcon = styled.button`
+  all: unset;
+  cursor: pointer;
+  position: relative;
+  left: -2.5rem;
+`

@@ -17,6 +17,12 @@ export const formatPhone = (phone) => {
     return phone;
 };
 
+export const formatEmail = (email) => {
+    if (typeof email !== 'string') return email;
+
+    return email.toLocaleLowerCase()
+}
+
 export const isValidEmail = (email) => {
     if (typeof email !== "string") return false;
 

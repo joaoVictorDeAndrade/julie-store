@@ -1,7 +1,7 @@
-import {app} from "../../firebaseConfig";
-import {useContext} from "react";
-import {UserContext} from "../../Context/UserContext";
-import {Navigate} from "react-router-dom";
+import { app } from "../../firebaseConfig";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
+import { Navigate } from "react-router-dom";
 import UseForm from "../../Hooks/UseForm";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -19,7 +19,7 @@ export default function Login() {
   const email = UseForm("email");
   const password = UseForm("password");
 
-  const {loginWithEmail, login, loading} = useContext(UserContext);
+  const { loginWithEmail, login, loading } = useContext(UserContext);
 
   const handleLogin = e => {
     e.preventDefault();
@@ -38,7 +38,7 @@ export default function Login() {
         </ImageContainer>
         <InputsContainer>
           <Form>
-            <Input label="E-mail" {...email} />
+            <Input label="E-mail" formatType="email"  {...email} />
             <Input label="Senha" type="password" {...password} />
             <Button text="Entrar" onClick={handleLogin} loading={loading} />
           </Form>
