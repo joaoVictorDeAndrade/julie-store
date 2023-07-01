@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { func, object, string } from "prop-types";
-import { formatCPF, formatEmail } from "../../helpers";
+import { func, object, string, number, oneOfType } from "prop-types";
+import { formatCPF, formatEmail, formatPhone } from "../../helpers";
 import {
   AiFillEye, AiFillEyeInvisible
 } from "react-icons/ai"
@@ -14,6 +14,7 @@ function formatInput(formatType, value) {
     cpf: formatCPF(value),
     email: formatEmail(value),
     cep: "",
+    phone: formatPhone(value)
   };
 
   return obj[formatType];
@@ -32,12 +33,18 @@ export default function InputComponent({
 }) {
   const [showPassword, setShowPassword] = useState(false)
 
+  const inputType = () => {
+    if (type === 'password' && showPassword) return 'text';
+    if (type === 'password' && !showPassword) return 'password';
+    return type;
+  }
+
   return (
     <InputWrapper style={style}>
       <Label htmlFor={label}>{label}</Label>
       <Wrapper >
         <Input
-          type={type === 'password' && !showPassword ? 'password' : 'text'}
+          type={inputType()}
           id={label}
           value={formatInput(formatType, value)}
           onChange={onChange}
@@ -65,7 +72,7 @@ export default function InputComponent({
 InputComponent.propTypes = {
   label: string,
   type: string,
-  value: string.isRequired,
+  value: oneOfType([string, number]).isRequired,
   error: string,
   onChange: func.isRequired,
   onBlur: func,

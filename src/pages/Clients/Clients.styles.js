@@ -29,8 +29,8 @@ export const ClientForm = styled.form`
 
 export const PersonalData = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0 1.5rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -38,14 +38,14 @@ export const PersonalData = styled.div`
 
   @media (max-width: 425px) {
     grid-template-columns: 1fr;
-    gap: 0px;
+    gap: 0;
   }
 `;
 
 export const AddressData = styled.div`
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
-  gap: 1.5rem;
+  gap: 0 1.5rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr 1fr;

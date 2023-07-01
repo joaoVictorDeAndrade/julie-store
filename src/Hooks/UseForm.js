@@ -1,6 +1,6 @@
 import React from "react";
-import {isValidEmail, isValidPassword} from "../helpers";
-import {cpf} from "cpf-cnpj-validator";
+import { isValidEmail, isValidPassword, isValidPhone } from "../helpers";
+import { cpf } from "cpf-cnpj-validator";
 
 const types = {
   email: {
@@ -16,19 +16,37 @@ const types = {
     message: "Preencha um CPF válido",
     isValid: (value) => cpf.isValid(value.replace(/\D/g, "")),
   },
+  phone: {
+    message: 'Preencha um Telefone Fixo válido',
+    isValid: (phone) => isValidPhone(phone)
+  },
+  cellphone: {
+    message: 'Preencha um Telefone Celular válido',
+    isValid: (phone) => isValidPhone(phone, true)
+  }
 };
 
-const useForm = (type, isRequired = false) => {
+const useForm = (type, isRequired = true) => {
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(null);
 
   function validate(value) {
     if (!type && !isRequired) return true;
 
-    if (value.length === 0) {
+    if (type && !isRequired) {
+      if (value && !types[type].isValid(value)) {
+        setError(types[type].message);
+        return false;
+      }
+      return true;
+    }
+
+    if (value.length === 0 && isRequired) {
+      console.log('aqui')
       setError("Preencha um valor.");
       return false;
     } else if (types[type] && !types[type].isValid(value)) {
+      console.log('aqui')
       setError(types[type].message);
       return false;
     } else {
@@ -37,7 +55,7 @@ const useForm = (type, isRequired = false) => {
     }
   }
 
-  function onChange({target}) {
+  function onChange({ target }) {
     if (error) validate(target.value);
     setValue(target.value);
   }

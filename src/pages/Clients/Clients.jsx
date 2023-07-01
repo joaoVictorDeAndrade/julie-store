@@ -1,14 +1,14 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Container from "../../components/Container/Container";
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import Loading from "../../components/Loading/Loading";
 
-import {ClientCard} from "./Clients.styles";
+import { ClientCard } from "./Clients.styles";
 
-import {fetchClients} from "../../services/clients";
-import {useNavigate} from "react-router-dom";
-import {formatCPF, formatPhone} from "../../helpers";
+import { getClients } from "../../services/clients";
+import { useNavigate } from "react-router-dom";
+import { formatCPF, formatPhone } from "../../helpers";
 
 export default function Clients() {
   const [clients, setClients] = useState([]);
@@ -19,19 +19,19 @@ export default function Clients() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getClients = async () => {
-      const response = await fetchClients();
+    const fetchClients = async () => {
+      const response = await getClients();
       setClients(response.clients);
       setFirstClient(response.firstClient);
       setLastClient(response.lastClient);
       setLoading(false);
     };
 
-    getClients();
+    fetchClients();
   }, []);
 
-  const goToClientDetails = (cpf) => {
-    navigate(`/clientes/detalhes/${cpf}`);
+  const goToClientDetails = (id) => {
+    navigate(`/clientes/detalhes/${id}`);
   };
 
   return (
@@ -43,7 +43,7 @@ export default function Clients() {
           <Loading height="3rem" />
         ) : (
           clients.map((client) => (
-            <ClientCard key={client.cpf}>
+            <ClientCard key={client.id}>
               <div>
                 <label>Nome: </label>
                 <h4>{client.name}</h4>
@@ -55,12 +55,12 @@ export default function Clients() {
               </div>
 
               <div>
-                <label>Telefone: </label>
-                <h4>{formatPhone(client.phone)}</h4>
+                <label>Celular: </label>
+                <h4>{formatPhone(client.cellphone)}</h4>
               </div>
 
               <Button
-                onClick={() => goToClientDetails(client.cpf)}
+                onClick={() => goToClientDetails(client.id)}
                 text="Ver Cliente"
               />
             </ClientCard>
