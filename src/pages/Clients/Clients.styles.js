@@ -20,6 +20,16 @@ export const ClientCard = styled.div`
   }
 `;
 
+export const SearchClientWrapper = styled.div`
+  display: flex;
+  align-items: end;
+  gap: 10px;
+
+   @media (max-width: 425px) {
+    flex-direction: column;
+   }
+`;
+
 export const ClientForm = styled.form`
   background: ${Colors.shape};
   border-radius: 1rem;
@@ -29,7 +39,7 @@ export const ClientForm = styled.form`
 
 export const PersonalData = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0 1.5rem;
 
   @media (max-width: 768px) {

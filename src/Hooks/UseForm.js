@@ -42,11 +42,9 @@ const useForm = (type, isRequired = true) => {
     }
 
     if (value.length === 0 && isRequired) {
-      console.log('aqui')
       setError("Preencha um valor.");
       return false;
     } else if (types[type] && !types[type].isValid(value)) {
-      console.log('aqui')
       setError(types[type].message);
       return false;
     } else {

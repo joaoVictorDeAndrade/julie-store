@@ -67,3 +67,11 @@ export const isMobile = () => {
         return false;
 
 }
+
+export const patternNameOnFirebase = (name) => {
+    if (typeof name !== "string") return name;
+
+    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
+
+    return name.split(" ");
+}

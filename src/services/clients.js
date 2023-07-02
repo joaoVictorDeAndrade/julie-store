@@ -1,7 +1,6 @@
 import {
   collection,
   doc,
-  setDoc,
   getDoc,
   updateDoc,
   getDocs,
@@ -30,14 +29,11 @@ export async function getClients(field = "name", maxQuery = 10) {
     const first = query(clientsRef, orderBy(field), limit(maxQuery));
     const { docs } = await getDocs(first);
 
-    const firstClient = docs[0].data();
-    const lastClient = docs[docs.length - 1].data();
-
     const clients = docs.map((item) => ({ ...item.data(), id: item.id }));
 
-    return { clients, firstClient, lastClient };
+    return clients;
   } catch {
-    return { clients: [], firstClient: null, lastClient: null };
+    return [];
   }
 }
 
@@ -52,9 +48,8 @@ export async function postClient(newClient) {
 
 export async function putClient(docId, newClient) {
   try {
-    console.log(docId, newClient)
-   const docRef = doc(clientsRef, docId);
-   await updateDoc(docRef, newClient);
+    const docRef = doc(clientsRef, docId);
+    await updateDoc(docRef, newClient);
   } catch (error) {
     console.log(error)
   }
@@ -79,5 +74,17 @@ export async function getClientByCPF(cpf) {
     return response.docs[0].data();
   } catch {
     return { ...emptyClient };
+  }
+}
+
+export async function getClientByPatternName(name) {
+  try {
+    const q = query(clientsRef, where('searchPatternName', 'array-contains-any', [name]));
+    const { docs } = await getDocs(q);
+
+    const clients = docs.map((item) => ({ ...item.data(), id: item.id }));
+    return clients;
+  } catch {
+    return [];
   }
 }
