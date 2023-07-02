@@ -29,7 +29,7 @@ export default function ClientDetails() {
   const complement = useForm(null, false);
   const neighborhood = useForm("neighborhood");
   const city = useForm("city");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const resetForm = () => {
     name.setValue('');
@@ -46,19 +46,26 @@ export default function ClientDetails() {
 
   useEffect(() => {
     async function fetchData() {
-      setLoading(true);
-      const response = await getClientByID(clientId);
-      name.setValue(response.name);
-      cpf.setValue(response.cpf);
-      birthdate.setValue(response.birthdate);
-      phone.setValue(response.phone);
-      cellphone.setValue(response.cellphone);
-      street.setValue(response.street);
-      number.setValue(response.number);
-      complement.setValue(response.complement);
-      neighborhood.setValue(response.neighborhood);
-      city.setValue(response.city);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const response = await getClientByID(clientId);
+        name.setValue(response.name);
+        cpf.setValue(response.cpf);
+        birthdate.setValue(response.birthdate);
+        phone.setValue(response.phone);
+        cellphone.setValue(response.cellphone);
+        street.setValue(response.street);
+        number.setValue(response.number);
+        complement.setValue(response.complement);
+        neighborhood.setValue(response.neighborhood);
+        city.setValue(response.city);
+      }
+      catch (error) {
+        console.log(error)
+      }
+      finally {
+        setLoading(false);
+      }
     }
 
     if (clientId) fetchData();
@@ -113,7 +120,7 @@ export default function ClientDetails() {
   const personalData = [
     { ...name, label: 'Nome', placeholder: 'Nome', style: { ...nameInputStyle } },
     { ...cpf, formatType: 'cpf', label: 'CPF', placeholder: 'CPF' },
-    { ...birthdate, type: 'date', label: 'Nome', placeholder: 'Nome' },
+    { ...birthdate, type: 'date', label: 'Data de Nascimento', placeholder: 'Data de Nascimento' },
     { ...phone, formatType: 'phone', label: 'Telefone', placeholder: '(16) 3665-1234' },
     { ...cellphone, formatType: 'phone', label: 'Celular', placeholder: '(16) 99999-9999' },
   ]
@@ -130,7 +137,6 @@ export default function ClientDetails() {
     <Container>
       <>
         <Title text={clientId ? "Editar Cliente" : "Adicionar Cliente"} />
-
         <ClientForm>
           <Title fontSize="1.25rem" text={"Dados Pessoais"} />
           <PersonalData>
