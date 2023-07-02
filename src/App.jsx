@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { UserStorage } from "./Context/UserContext";
 
 import Login from "./pages/Login/Login";
@@ -17,7 +17,7 @@ const routes = [
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <UserStorage>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -31,7 +31,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserStorage>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
