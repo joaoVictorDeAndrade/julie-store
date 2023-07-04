@@ -31,19 +31,19 @@ export default function Login() {
   if (login) return <Navigate to="/dashboard" />;
 
   return (
-    <Container>
-      <FormWrapper>
-        <ImageContainer>
-          <Logo />
-        </ImageContainer>
-        <InputsContainer>
-          <Form>
-            <Input label="E-mail" formatType="email"  {...email} />
-            <Input label="Senha" type="password" {...password} />
-            <Button text="Entrar" onClick={handleLogin} loading={loading} />
-          </Form>
-        </InputsContainer>
-      </FormWrapper>
-    </Container>
+      <Container>
+        <FormWrapper>
+          <ImageContainer>
+            <Logo />
+          </ImageContainer>
+          <InputsContainer>
+            <Form>
+              <Input label="E-mail" formatType="email"  {...email} />
+              <Input label="Senha" type="password" {...password} />
+              <Button text="Entrar" onClick={handleLogin} loading={loading} />
+            </Form>
+          </InputsContainer>
+        </FormWrapper>
+      </Container>
   );
 }
